@@ -3,11 +3,26 @@ package org.goodiesdilema.goodiesApp;
 import java.io.*;
 import java.util.*;
 
-class Item {
+/**
+ * The type Products.
+ */
+class products {
+	/**
+	 * The Name.
+	 */
 	String name;
+	/**
+	 * The Price.
+	 */
 	int price;
 
-	public Item(String name, int price) {
+	/**
+	 * Instantiates a new Products.
+	 *
+	 * @param name  the name
+	 * @param price the price
+	 */
+	public products(String name, int price) {
 		this.name = name;
 		this.price = price;
 	}
@@ -17,7 +32,16 @@ class Item {
 	}
 }
 
-class Main {
+/**
+ * The type Products class.
+ */
+class ProductsClass {
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 		FileInputStream fis = new FileInputStream("C:\\Users\\Patils\\eclipse-workspace\\Goodies dilema\\src\\org\\goodiesdilema\\goodiesApp\\input.txt");
 		Scanner sc = new Scanner(fis);
@@ -26,24 +50,24 @@ class Main {
 		sc.nextLine();
 		sc.nextLine();
 
-		ArrayList<Item> goodies_items = new ArrayList<Item>();
+		ArrayList<products> goodies_products = new ArrayList<products>();
 
 		while (sc.hasNextLine()) {
 			String current[] = sc.nextLine().split(": ");
-			goodies_items.add(new Item(current[0], Integer.parseInt(current[1])));
+			goodies_products.add(new products(current[0], Integer.parseInt(current[1])));
 		}
 		sc.close();
 
-		Collections.sort(goodies_items, new Comparator<Item>() {
-			public int compare(Item a, Item b) {
+		Collections.sort(goodies_products, new Comparator<products>() {
+			public int compare(products a, products b) {
 				return a.price - b.price;
 			}
 		});
 
-		int min_diff = goodies_items.get(goodies_items.size() - 1).price;
+		int min_diff = goodies_products.get(goodies_products.size() - 1).price;
 		int min_index = 0;
-		for (int i = 0; i < goodies_items.size() - number_of_employees + 1; i++) {
-			int diff = goodies_items.get(number_of_employees + i - 1).price - goodies_items.get(i).price;
+		for (int i = 0; i < goodies_products.size() - number_of_employees + 1; i++) {
+			int diff = goodies_products.get(number_of_employees + i - 1).price - goodies_products.get(i).price;
 
 			if (diff <= min_diff) {
 				min_diff = diff;
@@ -55,7 +79,7 @@ class Main {
 		FileWriter fw = new FileWriter("C:\\Users\\Patils\\eclipse-workspace\\Goodies dilema\\src\\org\\goodiesdilema\\goodiesApp\\output.txt");
 		fw.write("The goodies selected for distribution are:\n\n");
 		for (int i = min_index; i < min_index + number_of_employees; i++) {
-			fw.write(goodies_items.get(i).toString() + "\n");
+			fw.write(goodies_products.get(i).toString() + "\n");
 		}
 
 		fw.write("\nAnd the difference between the chosen goodie with highest price and the lowest price is " + min_diff);
